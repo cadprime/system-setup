@@ -1,41 +1,45 @@
 import Head from "next/head";
+import { signIn, signOut, useSession } from "next-auth/client";
 
 export default function Home() {
+  const [session] = useSession();
+
   return (
     <div>
       <Head>
-        <title>Amazon 2.0</title>
+        <title>Cadprime System</title>
       </Head>
+      <main className="flex flex-col flex-wrap justify-center flex-grow items-center w-full h-screen bg-gray-100">
+        {session && (
+          <>
+            <img
+              className="rounded-full"
+              src={session.user.image}
+              alt="Profile pic"
+            />
+            <p>{session.user.email}</p>
+          </>
+        )}
+        <h1 className="p-5 text-xl">
+          {session ? `Hello ${session.user.name}` : "Sign in"}
+        </h1>
 
-      {/* ---- TO BEGIN, delete this section and GET CODING!!! ---- */}
-      <center className="grid place-items-center mt-10">
-        <h1 className="text-5xl">Lets build Amazon 2.0</h1>
-        <h2>This is your starter template!</h2>
-        <br />
-        <h3 className="font-bold">
-          We will be using Next.js / Tailwind CSS / Redux / Firebase / NextAuth
-        </h3>
-        <i>(Dont worry, its all setup and ready to use!)</i>
-        <h4>Get Ready, Get Set, GO!!!</h4>
-
-        <h5 className="mb-10">#PAPAFAM</h5>
-
-        <div className="bg-red-300 p-10">
-          <p className="font-bold">
-            Dont forget to register for the challenge here!
-          </p>
-          <p>👇👇👇</p>
-          <a
-            href="https://www.papareact.com/secret-challenge"
-            className="text-blue-400 underline p-3 font-bold"
+        {session ? (
+          <button
+            className="py-2 px-6 rounded-full text-white bg-red-600 hover:bg-red-400"
+            onClick={signOut}
           >
-            CLICK HERE TO REGISTER NOW
-          </a>
-        </div>
-
-        <p className="mt-24">Built with 💙 by Sonny Sangha (PAPA REACT)</p>
-      </center>
-      {/* ---- ---- */}
+            Logout
+          </button>
+        ) : (
+          <button
+            className="py-2 px-6 rounded-full text-white bg-yellow-600 hover:bg-yellow-400"
+            onClick={signIn}
+          >
+            Sign in
+          </button>
+        )}
+      </main>
     </div>
   );
 }

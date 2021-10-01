@@ -7,7 +7,3 @@ module.exports = {
     domains: ["lh3.googleusercontent.com"],
   },
 };
-
-module.exports = {
-  webpack5: false,
-};

@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import basketReducer from "../slices/basketSlice";
+import timeInReducer from "../slices/timeInSlice";
 
+// THE GLOBAL STORE
 export const store = configureStore({
   reducer: {
-    basket: basketReducer,
+    timeIn: timeInReducer,
   },
 });
